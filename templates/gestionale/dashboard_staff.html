@@ -1,0 +1,50 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Dashboard Staff{% endblock %}
+{% block content %}
+<h1 class="h3 mb-4">Dashboard staff</h1>
+<div class="panel">
+    {% if staff %}
+        <div class="mb-4">
+            <h2 class="h5 mb-2">{{ staff.nome }} {{ staff.cognome }}</h2>
+            <p class="mb-1"><strong>Ruolo:</strong> {{ staff.ruolo_operativo }}</p>
+        </div>
+
+        {% if staff_sorvegliati %}
+            <h2 class="h5 mb-3">Staff sorvegliato</h2>
+            <ul class="list-group list-group-flush mb-4">
+                {% for persona in staff_sorvegliati %}
+                    <li class="list-group-item px-0">{{ persona.nome }} {{ persona.cognome }} - {{ persona.ruolo_operativo }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h2 class="h5 mb-3">Esecuzioni assegnate</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Prenotazione</th>
+                <th>Staff</th>
+                <th>Cliente</th>
+                <th>Data servizio</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for esecuzione in esecuzioni %}
+                <tr>
+                    <td>#{{ esecuzione.prenotazione.id }}</td>
+                    <td>{{ esecuzione.staff.nome }} {{ esecuzione.staff.cognome }}</td>
+                    <td>{{ esecuzione.prenotazione.cliente }}</td>
+                    <td>{{ esecuzione.prenotazione.data_servizio }}</td>
+                    <td><a class="btn btn-sm btn-outline-primary" href="{% url 'dettaglio_prenotazione' esecuzione.prenotazione.id %}">Apri</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">Nessuna esecuzione presente.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Profilo staff non configurato.</p>
+    {% endif %}
+</div>
+{% endblock %}

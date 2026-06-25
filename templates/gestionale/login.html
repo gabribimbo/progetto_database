@@ -1,0 +1,12 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Login - Pulizie Service{% endblock %}
+{% block content %}
+<div class="panel mx-auto" style="max-width: 480px;">
+    <h1 class="h3 mb-4">Accesso</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary w-100" type="submit">Accedi</button>
+    </form>
+</div>
+{% endblock %}

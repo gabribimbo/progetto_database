@@ -1,0 +1,18 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Dashboard Admin{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Dashboard admin</h1>
+    <a class="btn btn-primary" href="{% url 'servizio_list' %}">Gestisci servizi</a>
+</div>
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="panel"><div class="text-muted">Prenotazioni</div><div class="fs-3 fw-bold">{{ prenotazioni_count }}</div></div></div>
+    <div class="col-md-3"><div class="panel"><div class="text-muted">Clienti</div><div class="fs-3 fw-bold">{{ clienti_count }}</div></div></div>
+    <div class="col-md-3"><div class="panel"><div class="text-muted">Servizi</div><div class="fs-3 fw-bold">{{ servizi_count }}</div></div></div>
+    <div class="col-md-3"><div class="panel"><div class="text-muted">Staff</div><div class="fs-3 fw-bold">{{ staff_count }}</div></div></div>
+</div>
+<div class="panel">
+    <h2 class="h5 mb-3">Prenotazioni recenti</h2>
+    {% include "gestionale/partials/tabella_prenotazioni.html" with prenotazioni=prenotazioni_recenti %}
+</div>
+{% endblock %}

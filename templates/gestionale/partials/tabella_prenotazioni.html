@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Data servizio</th>
+        <th>Stato</th>
+        <th>Indirizzo</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for prenotazione in prenotazioni %}
+        <tr>
+            <td>#{{ prenotazione.id }}</td>
+            <td>{{ prenotazione.cliente }}</td>
+            <td>{{ prenotazione.data_servizio }}</td>
+            <td><span class="badge text-bg-secondary">{{ prenotazione.stato }}</span></td>
+            <td>{{ prenotazione.indirizzo_intervento }}</td>
+            <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{% url 'dettaglio_prenotazione' prenotazione.id %}">Dettaglio</a></td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6">Nessuna prenotazione presente.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>

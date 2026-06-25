@@ -1,0 +1,15 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Dashboard Cliente{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Dashboard cliente</h1>
+        <p class="mb-0 text-muted">{{ cliente.nome }} {{ cliente.cognome }}</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'crea_prenotazione' %}">Nuova prenotazione</a>
+</div>
+<div class="panel">
+    <h2 class="h5 mb-3">Ultime prenotazioni</h2>
+    {% include "gestionale/partials/tabella_prenotazioni.html" with prenotazioni=prenotazioni %}
+</div>
+{% endblock %}

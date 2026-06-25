@@ -1,0 +1,55 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Dettaglio Prenotazione{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Prenotazione #{{ prenotazione.id }}</h1>
+    <a class="btn btn-outline-secondary" href="{% url 'lista_prenotazioni' %}">Torna alla lista</a>
+</div>
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="panel mb-4">
+            <h2 class="h5">Dati intervento</h2>
+            <p><strong>Cliente:</strong> {{ prenotazione.cliente }}</p>
+            <p><strong>Data servizio:</strong> {{ prenotazione.data_servizio }}</p>
+            <p><strong>Stato:</strong> {{ prenotazione.stato }}</p>
+            <p><strong>Indirizzo:</strong> {{ prenotazione.indirizzo_intervento }}</p>
+        </div>
+        <div class="panel mb-4">
+            <h2 class="h5">Servizio selezionato</h2>
+            <table class="table">
+                <thead><tr><th>Servizio</th><th>Quantità</th><th>Prezzo unitario</th><th>Totale</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>{{ prenotazione.servizio.nome }}</td>
+                        <td>{{ prenotazione.quantita }}</td>
+                        <td>{{ prenotazione.servizio.prezzo_base }}</td>
+                        <td>{{ prenotazione.totale }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        {% if can_manage_status %}
+            <div class="panel mb-4">
+                <h2 class="h5">Modifica stato</h2>
+                <form method="post" action="{% url 'modifica_stato_prenotazione' prenotazione.id %}">
+                    {% csrf_token %}
+                    {{ stato_form.as_p }}
+                    <button class="btn btn-primary w-100" type="submit">Salva stato</button>
+                </form>
+            </div>
+        {% endif %}
+        {% if can_assign_staff %}
+            <div class="panel">
+                <h2 class="h5">Assegna staff</h2>
+                <form method="post" action="{% url 'assegna_staff' prenotazione.id %}">
+                    {% csrf_token %}
+                    {{ esecuzione_form.as_p }}
+                    <button class="btn btn-primary w-100" type="submit">Assegna</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

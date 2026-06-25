@@ -1,0 +1,13 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Elimina servizio{% endblock %}
+{% block content %}
+<div class="panel mx-auto" style="max-width: 560px;">
+    <h1 class="h3 mb-3">Elimina servizio</h1>
+    <p>Confermi l'eliminazione del servizio <strong>{{ servizio.nome }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Elimina</button>
+        <a class="btn btn-outline-secondary" href="{% url 'servizio_list' %}">Annulla</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Nuova Prenotazione{% endblock %}
+{% block content %}
+<div class="panel">
+    <h1 class="h3 mb-4">Nuova prenotazione</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row g-3 mb-4">
+            {% for field in form %}
+                <div class="col-md-6">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-12 mb-3">
+            <div class="alert alert-info mb-0" id="riepilogo-prezzo" style="display:none;">
+                <strong>Prezzo unitario:</strong> €<span id="prezzo-unitario">0.00</span> &nbsp;|&nbsp;
+                <strong>Totale:</strong> €<span id="prezzo-totale">0.00</span>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Salva prenotazione</button>
+    </form>
+</div>
+<script>
+(function () {
+    const prezzi = {{ prezzi_json }};
+    const servizioEl = document.getElementById("id_servizio");
+    const quantitaEl = document.getElementById("id_quantita");
+    const riepilogo = document.getElementById("riepilogo-prezzo");
+    const spanUnitario = document.getElementById("prezzo-unitario");
+    const spanTotale = document.getElementById("prezzo-totale");
+
+    function aggiorna() {
+        const id = servizioEl.value;
+        const prezzo = prezzi[id];
+        if (!prezzo) { riepilogo.style.display = "none"; return; }
+        const qty = parseInt(quantitaEl.value) || 1;
+        spanUnitario.textContent = prezzo.toFixed(2);
+        spanTotale.textContent = (prezzo * qty).toFixed(2);
+        riepilogo.style.display = "block";
+    }
+
+    servizioEl.addEventListener("change", aggiorna);
+    quantitaEl.addEventListener("input", aggiorna);
+    aggiorna();
+})();
+</script>
+{% endblock %}

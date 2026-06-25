@@ -1,0 +1,22 @@
+{% extends "gestionale/base.html" %}
+{% block title %}{{ titolo }}{% endblock %}
+{% block content %}
+<div class="panel">
+    <h1 class="h3 mb-4">{{ titolo }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row g-3">
+            {% for field in form %}
+                <div class="col-md-6">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+                    {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="btn btn-primary mt-4" type="submit">Salva</button>
+        <a class="btn btn-outline-secondary mt-4" href="{% url 'servizio_list' %}">Annulla</a>
+    </form>
+</div>
+{% endblock %}

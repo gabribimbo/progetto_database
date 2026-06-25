@@ -1,0 +1,29 @@
+{% extends "gestionale/base.html" %}
+{% block title %}Servizi{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Servizi di pulizia</h1>
+    <a class="btn btn-primary" href="{% url 'servizio_create' %}">Nuovo servizio</a>
+</div>
+<div class="panel">
+    <table class="table">
+        <thead><tr><th>Nome</th><th>Tipo</th><th>Prezzo base</th><th>Durata</th><th></th></tr></thead>
+        <tbody>
+        {% for servizio in servizi %}
+            <tr>
+                <td>{{ servizio.nome }}</td>
+                <td>{{ servizio.tipo_servizio }}</td>
+                <td>{{ servizio.prezzo_base }}</td>
+                <td>{{ servizio.durata_stimata }}</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-primary" href="{% url 'servizio_update' servizio.id %}">Modifica</a>
+                    <a class="btn btn-sm btn-outline-danger" href="{% url 'servizio_delete' servizio.id %}">Elimina</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5">Nessun servizio presente.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
