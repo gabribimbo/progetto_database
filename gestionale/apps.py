@@ -6,9 +6,9 @@ class GestionaleConfig(AppConfig):
     name = "gestionale"
 
     def ready(self):
-        # Import signal handlers to register them when the app is ready
+        # importa i signal per registrarli all'avvio dell'app
         try:
             import gestionale.signals  # noqa: F401
         except Exception:
-            # Avoid crashing import if signals file has issues; errors will surface during runtime
+            # evita il crash se il file signals ha problemi; gli errori emergono a runtime
             pass

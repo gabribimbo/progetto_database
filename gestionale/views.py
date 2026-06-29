@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Gabriele
 import json
 
 from django.contrib import messages
@@ -153,6 +151,7 @@ def crea_prenotazione(request):
             return redirect("dettaglio_prenotazione", pk=prenotazione.pk)
     else:
         form = PrenotazioneForm()
+    # prezzi passati al template come JSON per il calcolo dinamico lato JavaScript
     prezzi = {str(s.pk): float(s.prezzo_base) for s in ServizioPulizia.objects.all()}
     return render(request, "gestionale/form_prenotazione.html", {"form": form, "prezzi_json": json.dumps(prezzi)})
 

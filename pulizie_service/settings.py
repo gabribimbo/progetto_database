@@ -5,15 +5,13 @@ import secrets
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Use an environment-provided secret in production; otherwise generate one for
-# local development. Replace with a fixed secret in production via
-# `DJANGO_SECRET_KEY` environment variable.
+# in produzione va impostata tramite variabile d'ambiente DJANGO_SECRET_KEY
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or secrets.token_urlsafe(50)
 
-# DEBUG should be False in production. Control via `DJANGO_DEBUG` env var.
+# in produzione deve essere False, controllato dalla variabile d'ambiente DJANGO_DEBUG
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-# ALLOWED_HOSTS can be provided via `DJANGO_ALLOWED_HOSTS`, comma-separated.
+# host permessi, configurabili via DJANGO_ALLOWED_HOSTS separati da virgola
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 INSTALLED_APPS = [
@@ -85,7 +83,7 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
 
-# Security settings applied when not in DEBUG
+# impostazioni di sicurezza aggiuntive attive solo in produzione
 if not DEBUG:
     SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", "31536000"))
     SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "True") == "True"

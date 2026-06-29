@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Gabriele
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -29,6 +27,7 @@ class ClienteRegistrationForm(UserCreationForm):
         user.last_name = self.cleaned_data["cognome"]
         if commit:
             user.save()
+            # crea il profilo cliente collegato all'utente appena registrato
             Cliente.objects.create(
                 user=user,
                 nome=self.cleaned_data["nome"],

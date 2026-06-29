@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Gabriele
 from django.urls import path
 
 from . import views

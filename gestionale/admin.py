@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Gabriele
 from django.contrib import admin
 
 from .models import Cliente, Esegue, Prenotazione, ProfiloUtente, Prodotto, ServizioPulizia, Squadra, Staff

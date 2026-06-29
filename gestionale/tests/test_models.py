@@ -32,6 +32,6 @@ class ModelsBasicTests(TestCase):
 
     def test_esegue_assignment_unique(self):
         Esegue.objects.create(staff=self.staff, servizio=self.servizio)
-        # creating duplicate should raise IntegrityError due to unique_together
+        # creare un duplicato deve dare IntegrityError per via di unique_together
         with self.assertRaises(IntegrityError):
             Esegue.objects.create(staff=self.staff, servizio=self.servizio)
